@@ -1,6 +1,11 @@
 import React from 'react';
 import { useFormik } from 'formik';
 
+// Logs
+// console.log(formik.errors)
+// console.log(formik.values)
+// console.log(formik.touched) -> if this field is visited or not
+
 // Form initial values
 const initialValues = {
   name: '',
@@ -51,9 +56,10 @@ function YoutubeForm() {
             id='name'
             name='name'
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.name}
           />
-          {formik.errors.name ? (
+          {formik.touched.name && formik.errors.name ? (
             <div className='error'>{formik.errors.name}</div>
           ) : null}
         </div>
@@ -66,7 +72,7 @@ function YoutubeForm() {
             onChange={formik.handleChange}
             value={formik.values.email}
           />
-          {formik.errors.email ? (
+          {formik.touched.email && formik.errors.email ? (
             <div className='error'>{formik.errors.email}</div>
           ) : null}
         </div>
@@ -77,9 +83,10 @@ function YoutubeForm() {
             id='channel'
             name='channel'
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.channel}
           />
-          {formik.errors.channel ? (
+          {formik.touched.channel && formik.errors.channel ? (
             <div className='error'>{formik.errors.channel}</div>
           ) : null}
         </div>
