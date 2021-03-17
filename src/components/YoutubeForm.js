@@ -4,6 +4,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import TextError from './TextError';
 
 // Logs
 // console.log(formik.errors)
@@ -50,6 +51,7 @@ const validationSchema = Yup.object({
   name: Yup.string().required('Required'),
   email: Yup.string().email('Invalid email format').required('Required'),
   channel: Yup.string().required('Required'),
+  comments: Yup.string().required('Required'),
 });
 
 function YoutubeForm() {
@@ -63,12 +65,12 @@ function YoutubeForm() {
         <div className='form-control'>
           <label htmlFor='name'>Name</label>
           <Field type='text' id='name' name='name' />
-          <ErrorMessage name='name' />
+          <ErrorMessage name='name' component={TextError} />
         </div>
         <div className='form-control'>
           <label htmlFor='email'>Email</label>
           <Field type='text' id='email' name='email' />
-          <ErrorMessage name='email' />
+          <ErrorMessage name='email' component={TextError} />
         </div>
         <div className='form-control'>
           <label htmlFor='channel'>Channel</label>
@@ -78,11 +80,14 @@ function YoutubeForm() {
             name='channel'
             placeholder='Youtube channel name'
           />
-          <ErrorMessage name='channel' />
+          <ErrorMessage name='channel' component={TextError} />
         </div>
         <div className='form-control'>
           <label htmlFor='comments'>Comments</label>
           <Field as='textarea' id='comments' name='comments' />
+          <ErrorMessage name='comments'>
+            {(errorMsg) => <div className='error'>{errorMsg}</div>}
+          </ErrorMessage>
         </div>
         <div className='form-control'>
           <label htmlFor='address'>Address</label>
