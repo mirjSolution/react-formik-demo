@@ -2,7 +2,14 @@
 // npm install yup
 
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FieldArray,
+  FastField,
+} from 'formik';
 import * as Yup from 'yup';
 import TextError from './TextError';
 
@@ -97,10 +104,10 @@ function YoutubeForm() {
         </div>
         <div className='form-control'>
           <label htmlFor='address'>Address</label>
-          <Field name='address'>
+          <FastField name='address'>
             {(props) => {
               const { field, meta } = props;
-              // console.log('Render props', props);
+              console.log('Field Render');
               return (
                 <div>
                   <input type='text' id='address' {...field} />
@@ -108,7 +115,7 @@ function YoutubeForm() {
                 </div>
               );
             }}
-          </Field>
+          </FastField>
         </div>
         <div className='form-control'>
           <label htmlFor='facebook'>Facebook Profile</label>
