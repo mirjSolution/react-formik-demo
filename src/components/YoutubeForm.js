@@ -18,6 +18,10 @@ const initialValues = {
   channel: '',
   comments: '',
   address: '',
+  social: {
+    facebook: '',
+    twitter: '',
+  },
 };
 
 // Submit form
@@ -103,6 +107,14 @@ function YoutubeForm() {
               );
             }}
           </Field>
+          <div className='form-control'>
+            <label htmlFor='facebook'>Facebook Profile</label>
+            <Field type='text' id='facebook' name='social.facebook' />
+          </div>
+          <div className='form-control'>
+            <label htmlFor='twitter'>Twitter Profile</label>
+            <Field type='text' id='twitter' name='social.twitter' />
+          </div>
         </div>
         <button type='submit'>Submit</button>
       </Form>
