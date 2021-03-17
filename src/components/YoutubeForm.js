@@ -2,7 +2,7 @@
 // npm install yup
 
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import TextError from './TextError';
 
@@ -23,6 +23,7 @@ const initialValues = {
     twitter: '',
   },
   phoneNumbers: ['', ''],
+  phNumbers: [''],
 };
 
 // Submit form
@@ -99,7 +100,7 @@ function YoutubeForm() {
           <Field name='address'>
             {(props) => {
               const { field, meta } = props;
-              console.log('Render props', props);
+              // console.log('Render props', props);
               return (
                 <div>
                   <input type='text' id='address' {...field} />
@@ -108,23 +109,52 @@ function YoutubeForm() {
               );
             }}
           </Field>
-          <div className='form-control'>
-            <label htmlFor='facebook'>Facebook Profile</label>
-            <Field type='text' id='facebook' name='social.facebook' />
-          </div>
-          <div className='form-control'>
-            <label htmlFor='twitter'>Twitter Profile</label>
-            <Field type='text' id='twitter' name='social.twitter' />
-          </div>
-          <div className='form-control'>
-            <label htmlFor='primaryPh'>Primary Phone Number</label>
-            <Field type='text' id='primaryPh' name='phoneNumbers[0]' />
-          </div>
-          <div className='form-control'>
-            <label htmlFor='secondarhPh'>Secondary Phone Number</label>
-            <Field type='text' id='secondarhPh' name='phoneNumbers[1]' />
-          </div>
         </div>
+        <div className='form-control'>
+          <label htmlFor='facebook'>Facebook Profile</label>
+          <Field type='text' id='facebook' name='social.facebook' />
+        </div>
+        <div className='form-control'>
+          <label htmlFor='twitter'>Twitter Profile</label>
+          <Field type='text' id='twitter' name='social.twitter' />
+        </div>
+        <div className='form-control'>
+          <label htmlFor='primaryPh'>Primary Phone Number</label>
+          <Field type='text' id='primaryPh' name='phoneNumbers[0]' />
+        </div>
+        <div className='form-control'>
+          <label htmlFor='secondarhPh'>Secondary Phone Number</label>
+          <Field type='text' id='secondarhPh' name='phoneNumbers[1]' />
+        </div>
+        <div className='form-control'>
+          <label>List of phone numbers</label>
+          <FieldArray name='phNumbers'>
+            {(fieldArrayProps) => {
+              // console.log('fieldArrayProps', fieldArrayProps);
+              const { push, remove, form } = fieldArrayProps;
+              const { values } = form;
+              const { phNumbers } = values;
+              return (
+                <div>
+                  {phNumbers.map((phNumber, index) => (
+                    <div key={index}>
+                      <Field name={`phNumbers[${index}]`} />
+                      {index > 0 && (
+                        <button type='button' onClick={() => remove(index)}>
+                          -
+                        </button>
+                      )}
+                      <button type='button' onClick={() => push()}>
+                        +
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              );
+            }}
+          </FieldArray>
+        </div>
+
         <button type='submit'>Submit</button>
       </Form>
     </Formik>
