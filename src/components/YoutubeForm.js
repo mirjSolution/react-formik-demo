@@ -1,7 +1,7 @@
 // npm install formik
 // npm install yup
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Formik,
   Form,
@@ -25,6 +25,21 @@ const initialValues = {
   channel: '',
   comments: '',
   address: '',
+  social: {
+    facebook: '',
+    twitter: '',
+  },
+  phoneNumbers: ['', ''],
+  phNumbers: [''],
+};
+
+// Sample data to be loaded
+const savedValues = {
+  name: 'Rico',
+  email: 'test@test.com',
+  channel: 'mirjSolution',
+  comments: 'Welcome formik',
+  address: 'Testing at test',
   social: {
     facebook: '',
     twitter: '',
@@ -57,11 +72,13 @@ const validateComments = (value) => {
 };
 
 function YoutubeForm() {
+  const [formValues, setFormValues] = useState(null);
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      enableReinitialize
       // validateOnMount
       // validateOnChange={false}
       // validateOnBlur={false}
@@ -164,7 +181,7 @@ function YoutubeForm() {
                 }}
               </FieldArray>
             </div>
-            <button
+            {/* <button
               type='button'
               onClick={() => formik.validateField('comments')}
             >
@@ -191,10 +208,13 @@ function YoutubeForm() {
               }
             >
               Visit All
-            </button>
+            </button> */}
             {/* <button type='submit' disabled={!formik.dirty && formik.isValid}>
               Submit
             </button> */}
+            <button type='button' onClick={() => setFormValues(savedValues)}>
+              Load Values
+            </button>
             <button
               type='submit'
               disabled={!formik.isValid || formik.isSubmitting}
