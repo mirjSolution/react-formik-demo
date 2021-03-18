@@ -53,6 +53,7 @@ const onSubmit = (values, onSubmitProps) => {
   console.log('Form data', values);
   console.log('Submit props', onSubmitProps);
   onSubmitProps.setSubmitting(false);
+  onSubmitProps.resetForm();
 };
 
 // Validation schema using yup
@@ -79,6 +80,7 @@ function YoutubeForm() {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
       enableReinitialize
+
       // validateOnMount
       // validateOnChange={false}
       // validateOnBlur={false}
@@ -214,6 +216,10 @@ function YoutubeForm() {
             </button> */}
             <button type='button' onClick={() => setFormValues(savedValues)}>
               Load Values
+            </button>
+            <button type='reset' onClick={() => setFormValues(initialValues)}>
+              Reset Values
+              {console.log(formValues)}
             </button>
             <button
               type='submit'
