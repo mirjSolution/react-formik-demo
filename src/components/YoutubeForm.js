@@ -34,8 +34,10 @@ const initialValues = {
 };
 
 // Submit form
-const onSubmit = (values) => {
+const onSubmit = (values, onSubmitProps) => {
   console.log('Form data', values);
+  console.log('Submit props', onSubmitProps);
+  onSubmitProps.setSubmitting(false);
 };
 
 // Validation schema using yup
@@ -60,6 +62,7 @@ function YoutubeForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      // validateOnMount
       // validateOnChange={false}
       // validateOnBlur={false}
     >
@@ -189,7 +192,15 @@ function YoutubeForm() {
             >
               Visit All
             </button>
-            <button type='submit'>Submit</button>
+            {/* <button type='submit' disabled={!formik.dirty && formik.isValid}>
+              Submit
+            </button> */}
+            <button
+              type='submit'
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
+              Submit
+            </button>
           </Form>
         );
       }}
