@@ -29,6 +29,7 @@ function FormikContainer() {
     selectOption: '',
     radioOption: '',
     checkboxOption: [],
+    birthDate: null,
   };
 
   const validationSchema = Yup.object({
@@ -37,9 +38,20 @@ function FormikContainer() {
     selectOption: Yup.string().required('Required'),
     radioOption: Yup.string().required('Required'),
     checkboxOption: Yup.array().min(1, 'Required'),
+    birthDate: Yup.date().required('Required').nullable(),
   });
 
-  const onSubmit = (values) => console.log('Form data', values);
+  const onSubmit = (values) => {
+    console.log('Form data', values);
+
+    // parse() takes a JSON string and transforms it into a JavaScript object. JSON. stringify() takes a JavaScript object and transforms it into a JSON string.
+
+    const jsonDate = JSON.stringify(values.birthDate);
+    const parseDate = JSON.parse(jsonDate);
+    const newDate = new Date(parseDate);
+
+    console.log(newDate);
+  };
 
   return (
     <Formik
@@ -79,6 +91,7 @@ function FormikContainer() {
             name='checkboxOption'
             options={checkboxOptions}
           />
+          <FormikControl control='date' label='Pick a date' name='birthDate' />
           <button type='submit'>Submit</button>
         </Form>
       )}
