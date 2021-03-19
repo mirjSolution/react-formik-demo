@@ -4,13 +4,15 @@ import FormikContainer from './components/FormikContainer';
 import LoginForm from './components/LoginForm';
 
 import './App.css';
+import RegistrationForm from './components/RegistrationForm';
 
 function App() {
   return (
     <div className='App'>
       {/* <YoutubeForm /> */}
       {/* <FormikContainer /> */}
-      <LoginForm />
+      {/* <LoginForm /> */}
+      <RegistrationForm />
     </div>
   );
 }
